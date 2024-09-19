@@ -1,0 +1,79 @@
+https://github.com/mania605/git-rebase-reset-revert.git
+
+
+<VSCODE Terminal 사용시 log 한줄로 나오게 하는 방법 
+git log --oneline
+
+
+rebase로 수정하면 그담 단계까지 같이 수정해야 함.
+pick 대신 drop으로 저장하면 마스터에 다 지워진 채 pick만 저장됨
+
+ 
+git checkout master
+git merge sub
+
+git rebase sub
+
+<Merge와 Rebase의 차이
+
+Merge장점은
+병합시점에 기존 작업 순서대로 병합되며,
+이름이 같을경우에도 원본내용이 유지된다.
+
+conflict 해결하는 게 중요.
+
+
+Rebase 기준점 재설정.
+
+쉽게 말해서, 머지는 두 기록을 합치는 것이고, 
+리베이스는 기록을 정리하는 것이야.
+
+리베이스는 혼자작업할때만 쓰는 것이 좋고. 실무에서도 잘 안씀.
+
+
+<git commit 되돌리는 방법 2가지>
+1. 최신 커밋 하나를 삭제하는 방법
+git log --oneline 상태 확인. 
+git reset HEAD^
+git checkout --oneline 으로 확인하면, 이전커밋으로 갈 수 있음.  이전커밋 가기전에 지금커밋 저장하기.
+git log 로 커밋아이디 풀 해시코드 확인
+
+현재커밋을 날려버리고 이전 커밋 내용을 알고있다는 가정 하에 되돌리기
+git checkout ******** (커밋아이디 풀 해시코드)
+git log --oneline
+
+이렇게 되돌린다고 하더라도 가비지 컬렉터가 일정시간동안은 작업을 어딘가에 저장하지만. 
+대부분 리셋대신 revert를 사용한다.
+
+**중요**
+뒤에 --hard를 붙이면
+이건 더이상 되돌릴 방법이 없이 내역도 다 지워짐. 그래서 되돌리기 할 수 없다.
+git reset HEAD^ --hard 
+
+
+
+2. git revert
+이전커밋 놔둔 상태에서 이전으로 가고싶은 경우 사용
+git revert 6자리코드
+하면 conflict 발생. 이거 해결하고 나서.
+git add .
+git commit -m '새이름으로저장'
+git log --oneline 으로 보면, 
+마스터에 현재커밋을 남긴 상태에서 이전커밋을 새로 복사해서 넘어가게 됨.
+실무에서는 reset보다는 revert가 더 많이 쓰인다.
+
+
+commit 되돌리기 reset,revert
+
+
+
+
+
+<git bash 에서 폴더 열어 코드작업하는 방법>
+cd desktop
+cd 새폴더이름
+code . 
+
+코드 영문으로 입력 후 스페이스 바로 한칸 띄고 쩜 찍으면 
+기본으로 연결해 놓은 코딩 프로그램이 열린다.
+나의경우는 VS CODE가 열리면서 해당 폴더가 자동으로 열린 창이 나타났다. 
